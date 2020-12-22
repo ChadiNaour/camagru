@@ -78,6 +78,7 @@
         public function single()
         {
             $this->execute();
+            //echo $this->stmt->fetch(PDO::FETCH_OBJ);
             return $this->stmt->fetch(PDO::FETCH_OBJ);
         }
 
