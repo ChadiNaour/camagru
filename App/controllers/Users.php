@@ -44,6 +44,10 @@
                 {
                     $data['name_err'] = 'Please enter your name';
                 }
+                else if (!ctype_alnum($data['name']))
+                {
+                    $data['name_err'] = 'Please name Should be AlphaNumeric';
+                }
                 //validate password
                 if(empty($data['password']))
                 {
@@ -74,7 +78,10 @@
                     //$this->view('users/register', $data);
                     // register uder
                     if ($this->usermodel->register($data))
+                    {
+                        flash('register_success', 'You are registered and can log in');
                         redirect('users/login');
+                    }
                     else
                         die('tkhawr');
                 }
@@ -126,10 +133,32 @@
                     $data['password_err'] = 'Please enter your password';
                 }
 
+                //check for user/email
+                if ($this->usermodel->finduserbyemail($data['email']))
+                {
+
+                }
+                else
+                {
+                    $data['email_err'] = 'No user found';
+
+                }
+
                 //make sure errors are empty
                 if (empty($data['email_err']) && empty($data['password_err']))
                 {
-                    die('SUCCESS');
+                    //check and set logged in user
+                    $loggeduser = $this->usermodel->login($data['email'], $data['password']);
+                    if ($loggeduser)
+                    {
+                        //create session
+                        $this->createuser($loggeduser);
+                    }
+                    else
+                    {
+                        $data['password_err'] = 'Password incorrect';
+                        $this->view('users/login', $data);
+                    }
                 }
                 else
                 {
@@ -151,4 +180,28 @@
             }
         }
 
+        public function createuser($user)
+        {
+            $_SESSION['user_id'] = $user->id;
+            $_SESSION['user_email'] = $user->email;
+            $_SESSION['user_name'] = $user->name;
+            redirect('pages/index');
+        }
+
+        public function logout()
+        {
+            unset($_SESSION['user_id']);
+            unset($_SESSION['user_email']);
+            unset($_SESSION['user_name']);
+            session_destroy();
+            redirect('users/login');
+        }
+
+        public function islogged()
+        {
+            if (isset($_SESSION['user_id']))
+                return true;
+            else
+                return false;
+        }
     }

@@ -9,4 +9,4 @@
     //url root
     define('URLROOT', 'http://192.168.99.101:8083');
     //sit name
-    define('SITENAME', 'camagru');
+    define('SITENAME', 'Camagru');
