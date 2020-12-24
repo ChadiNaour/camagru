@@ -7,13 +7,19 @@
             {
                 redirect('users/login');
             }
+
+            $this->postmodel = $this->model('Post');
             
         }
         public function index()
         {
-            $data = [];
+            //get posts
+            $posts = $this->postmodel->getposts();
+            $data = [
+                'posts' => $posts
+            ];
 
-            $this->view('Posts/index');
+            $this->view('Posts/index', $data);
 
         }
 
