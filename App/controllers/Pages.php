@@ -7,6 +7,10 @@
 
         public function index()
         {
+            if (islogged())
+            {
+                redirect('posts');
+            }
             $data = [
                 'title' => 'camagru'
             ];

@@ -53,4 +53,13 @@
                 return(false);
              //print_r($results);
         }
+
+        public function getuserbyid($id)
+        {
+            //echo "dkhl";
+             $this->db->query("SELECT * FROM users WHERE id = :id");
+             $this->db->bind(':id', $id);
+             $row = $this->db->single();
+             return $row;
+        }
     }
