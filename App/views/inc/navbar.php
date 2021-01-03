@@ -6,6 +6,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <div id="navbarsExampleDefault">
       <ul class="navbar-nav ml-auto">
         <?php if(isset($_SESSION['user_id'])) : ?>
         <li class="nav-item">
@@ -21,5 +22,6 @@
         <?php endif?>
       </ul>
     </div>
+  </div>
   </div>
 </nav>

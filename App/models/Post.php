@@ -25,14 +25,19 @@
 
         public function addpost($data)
         {
+            
             $this->db->query('INSERT INTO posts (title, user_id, body) VALUES (:title, :user_id, :body)');
             $this->db->bind(':title', $data['title']);
             $this->db->bind(':user_id', $data['user_id']);
             $this->db->bind(':body', $data['body']);
-
+            
+            
             //execute
             if($this->db->execute())
+            {
+                echo "dkhl";
                 return true;
+            }
             else
                 return false;
         }
@@ -70,6 +75,24 @@
             else
                 return false;
 
-
         }
-    }
+
+        public function getlikes(){
+            $this->db->query('SELECT * FROM likes');
+            $result = $this->db->resset();
+            return ($result);
+        }
+
+        public function addLike($data)
+        {
+            $this->db->query('INSERT INTO likes (user_id, post_id) VALUES (:user_id, :post_id)');
+            $this->db->bind(':user_id',$data['user_id']);
+            $this->db->bind(':post_id',$data['post_id']);
+    
+            if($this->db->execute())
+            {
+                return true;
+            } else
+                return false;
+        }
+}

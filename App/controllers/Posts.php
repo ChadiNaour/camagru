@@ -39,7 +39,6 @@
                     'title_err' => '',
                     'body_err' => ''
                 ];
-
                 //validate data
                 if (empty($data['title']))
                 {
@@ -49,13 +48,15 @@
                 {
                     $data['body_err'] = 'Please enter body text';
                 }
-
+                
                 //make sure no errors
                 if (empty($data['title_err']) && empty($data['body_err']))
                 {
+                    
                     //validated
                     if ($this->postmodel->addpost($data))
                     {
+                        echo "dkhl";
                         flash('post_message', 'Post Added');
                         redirect('posts');
                     }
@@ -147,10 +148,13 @@
         {
             $post = $this->postmodel->getpostbyid($id);
             $user = $this->usermodel->getuserbyid($post->user_id);
+            $likes = $this->postmodel->getlikes();
+            //print_r($likes);
 
             $data = [
                 'post' => $post,
-                'user'=> $user
+                'user'=> $user,
+                'likes' => $likes
             ];
             $this->view('posts/show', $data);
         }
@@ -175,6 +179,45 @@
             else
             {
                 redirect('posts');
+            }
+        }
+
+        public function like(){
+            echo "dkhl";
+        
+            if(isset($_POST['post_id']) && isset($_POST['user_id']) && isset($_POST['c']) && isset($_POST['like_nbr']) && islogged())
+            {
+                $data = [
+                    'post_id'=> $_POST['post_id'],
+                    'user_id' => $_POST['user_id'],
+                    'c' => $_POST['c'],
+                    'like_nbr' => $_POST['like_nbr']
+                ];
+                 $this->postModel->like_nbr($data);
+                if($data['c'] == 'fa fa-heart')
+                {
+                  
+                  if($this->postModel->deleteLike($data))
+                  {
+    
+                  }
+                  else
+                  {
+                    die('wa noud');
+                  }
+                }
+                else if($data['c'] == 'fa fa-heart-o')
+                {
+                  
+                  if($this->postModel->addLike($data))
+                  {
+                  }
+                  else
+                  {
+                    die('wa noud');
+                  }
+                }
+                   
             }
         }
     }

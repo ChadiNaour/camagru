@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Dec 24, 2020 at 05:54 AM
+-- Generation Time: Jan 03, 2021 at 02:28 AM
 -- Server version: 8.0.22
 -- PHP Version: 7.4.11
 
@@ -24,6 +24,24 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `likes`
+--
+
+CREATE TABLE `likes` (
+  `user_id` int NOT NULL,
+  `post_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `likes`
+--
+
+INSERT INTO `likes` (`user_id`, `post_id`) VALUES
+(2, 2);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `posts`
 --
 
@@ -32,16 +50,17 @@ CREATE TABLE `posts` (
   `user_id` int NOT NULL,
   `title` varchar(255) NOT NULL,
   `body` text NOT NULL,
-  `creat_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `creat_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `likes_nbr` int DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `posts`
 --
 
-INSERT INTO `posts` (`id`, `user_id`, `title`, `body`, `creat_time`) VALUES
-(1, 2, 'post1', 'test1', '2020-12-24 01:57:41'),
-(2, 5, 'post2', 'test2', '2020-12-24 01:57:41');
+INSERT INTO `posts` (`id`, `user_id`, `title`, `body`, `creat_time`, `likes_nbr`) VALUES
+(2, 2, 'uhiuk', 'uihoilj', '2021-01-02 17:10:25', 5),
+(4, 2, 'kvmbdgklbf', 'fsbsfbfsbsf', '2021-01-02 21:22:59', 6);
 
 -- --------------------------------------------------------
 
@@ -100,7 +119,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
