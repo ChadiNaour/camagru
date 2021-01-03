@@ -1,13 +1,14 @@
 <?php
     class Core
     {
-        protected $currcontroller = 'pages';
+        protected $currcontroller = 'Pages';
         protected $currmethod = 'index';
         protected $params = [];
 
         public function __construct()
         {
             $url = $this->geturl();
+            //print_r ($url);
 
             if (file_exists('../App/controllers/' . ucwords($url[0]). '.php'))
             {
