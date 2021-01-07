@@ -10,15 +10,20 @@
 
             $this->postmodel = $this->model('Post');
             $this->usermodel = $this->model('User');
-            
         }
         public function index()
         {
             //get posts
             $posts = $this->postmodel->getposts();
+            $likes = $this->postmodel->getlikes();
+            $comments = $this->postmodel->getcomments();
+            //print_r($comments);
             $data = [
-                'posts' => $posts
+                'comments'=> $comments,
+                'posts' => $posts,
+                'likes' => $likes
             ];
+            //print_r($data['likes']);
 
             $this->view('Posts/index', $data);
 
@@ -183,8 +188,6 @@
         }
 
         public function like(){
-            echo "dkhl";
-        
             if(isset($_POST['post_id']) && isset($_POST['user_id']) && isset($_POST['c']) && isset($_POST['like_nbr']) && islogged())
             {
                 $data = [
@@ -193,13 +196,14 @@
                     'c' => $_POST['c'],
                     'like_nbr' => $_POST['like_nbr']
                 ];
-                 $this->postModel->like_nbr($data);
+                print_r($data);
+                $this->postmodel->likes_nbr($data);
                 if($data['c'] == 'fa fa-heart')
                 {
                   
-                  if($this->postModel->deleteLike($data))
+                  if($this->postmodel->deleteLike($data))
                   {
-    
+
                   }
                   else
                   {
@@ -208,8 +212,7 @@
                 }
                 else if($data['c'] == 'fa fa-heart-o')
                 {
-                  
-                  if($this->postModel->addLike($data))
+                  if($this->postmodel->addLike($data))
                   {
                   }
                   else
@@ -218,6 +221,28 @@
                   }
                 }
                    
+            }
+        }
+
+        public function comment(){
+
+            if(isset($_POST['c_post_id']) && isset($_POST['c_user_id']) && isset($_POST['content']) && strlen($_POST['content']) <= 255 && islogged())
+            {
+                $data = [
+                    'post_id'=> $_POST['c_post_id'],
+                    'user_id' => $_POST['c_user_id'],
+                    'content' => $_POST['content'],
+                ];
+                //print_r($data);
+                //die("kaka");
+                $com = $this->usermodel->get_commenter($data['user_id']);
+                $uid = $this->postmodel->getUserByPostId($data['post_id']);
+                $d = $this->usermodel->get_dest($uid->user_id);
+                if($this->postmodel->addComment($data) && $d->notif == 1)
+                {
+                  
+                    //$this->c_send_email($com, $d);
+                }
             }
         }
     }

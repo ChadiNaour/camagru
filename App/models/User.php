@@ -62,4 +62,38 @@
              $row = $this->db->single();
              return $row;
         }
+
+        public function get_commenter($user_id)
+        {
+            $this->db->query('SELECT * FROM users WHERE id = :id');
+            $this->db->bind(':id',$user_id);
+            $result = $this->db->single();
+            if($result)
+                return ($result);
+            else
+                return false;
+        } 
+        
+        public function get_dest($user_id)
+        {
+            $this->db->query('SELECT * FROM users WHERE id = :id');
+            $this->db->bind(':id',$user_id);
+            $result = $this->db->single();
+            if($result)
+                return ($result);
+            else
+                return false;
+        } 
+                //////////////////
+        
+        public function profilePic($path, $user_id)
+        {
+            $this->db->query('UPDATE users SET profile_photo = :p WHERE id = :id');
+            $this->db->bind(':id', $user_id);
+            $this->db->bind(':p', $path);
+            if($this->db->execute())
+                return true;
+            else
+                return false;
+        }
     }
