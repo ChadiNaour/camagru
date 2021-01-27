@@ -1,0 +1,398 @@
+/* 01 General */
+/* 02 Navbar */
+/* 03 Index page */
+/* 04 Post Add page */
+/* 05 Users profile page */
+
+/* ********** */
+/* 01 General */
+/* ********** */
+
+body {
+	background-color: whitesmoke;
+}
+
+i {
+	width: 30px;
+	height: auto;
+}
+
+/* ********* */
+/* 02 Navbar */
+/* ********* */
+
+.navbar{
+	box-shadow: 0px 0.7px grey ;
+}
+.navbar-brand {
+	font-size: 20px;
+	text-decoration:none;
+	margin-left: 1rem;
+}
+
+.out-btn {
+	width: 1.2rem;
+	height: 1.2rem;
+}
+
+.list-out-btn {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+
+.cam-btn {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+
+.list-cam-btn {
+	width: 2rem;
+	height: 2rem;
+}
+
+.profile-btn {
+	width: 1.5rem;
+	height: 1.5rem;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.list-profile-btn {
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.list-btn {
+	width: 2rem;
+	height: 2rem;
+	border-radius: 50%;
+}
+
+.list-toggle {
+	display: none;
+}
+
+.liste {
+	display: none;
+	position: absolute;
+	right: 10%;
+	top: 15%;
+	background-color: whitesmoke;
+	border: 1px solid black;
+	width: 10rem;
+}
+.liste ul {
+	list-style: none;
+}
+
+.liste ul li a {
+	text-decoration: none;
+}
+
+/* @media screen and (max-width:1200px)
+{
+	.cam-btn {
+		display: none;
+	}
+	.out-btn {
+		display: none;
+	}
+	.profile-btn {
+		display: none;
+	}
+	.list-toggle {
+		display: block;
+	}
+	.list-toggle:hover .liste {
+		display: block;
+	}
+	.post-container {
+		width: 70%;
+		height: auto;
+	}
+	.post-img {
+		width: 100%;
+		height: 50%;
+	}
+} */
+
+/* ************* */
+/* 03 Index page */
+/* ************* */
+
+.post-container {
+	width: 50%;
+	height: auto;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+}
+.post-user {
+	width: 7%;
+	height: auto;
+	border-radius: 50%;  
+	border: 1px solid black;
+	object-fit: cover;
+}
+
+@media screen and (max-width:425px)
+{
+	.post-container {
+		width: 100%;
+		height: auto;
+		padding-bottom: 0px;
+		margin-bottom: 0px;
+	}
+
+	.post-user {
+		width: 6vw;
+		height: auto;
+		border-radius: 50%;  
+		border: 1px solid black;
+		object-fit: cover;
+	}
+}
+.post-img {
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+}
+
+.create_date {
+	color: lightgrey;
+}
+
+
+
+.card-footer {
+	background-color: white;
+	height: auto;
+}
+/* **************** */
+/* 04 Post Add page */
+/* **************** */
+
+.add-container{
+	margin-top: 3vh;
+	margin-left: auto!important;
+	margin-right: auto!important;
+	width:50%;
+
+}
+
+#upper-card{
+	height:40vh;
+}
+
+#image-canvas-container{
+	/* width:; */
+	height:80%;
+	margin:0;
+}
+
+.camera {
+	margin-right: 1rem;
+	width: 50%;
+	margin-right:7%;
+}
+
+.image {
+	width: 50%;
+	position: relative;
+}
+
+#pic-canvas{
+	position: relative;
+	/* width: auto; */
+	bottom:0;
+	right:0;
+	width:100%;
+	height:100%;
+	border: solid 1px red;
+}
+
+.image-footer{
+	height: 30%;
+	position:relative;
+	left:0;
+	margin:0;
+	margin-top:1%;
+	padding:0;
+}
+
+.buttons {
+	width: 50%;
+	height: auto;
+}
+
+.column {
+	float: left;
+	width: 23%;
+	height: auto;
+}
+
+#thum {
+	height: 20rem;
+}
+
+.filters {
+	/* position:relative;
+	left:0; */
+	width: 40%;
+	margin:0;
+	padding:0;
+	margin-right: 7% ;
+}
+
+.filter_img {
+	width: 70%;
+	height: 10%;
+}
+
+label {
+	display: block;
+	position: relative;
+	cursor: pointer;
+  }
+  
+  label:before {
+	background-color: black;
+	color: black;
+	content: " ";
+	display: block;
+	border-radius: 50%;
+	border: 1px solid grey;
+	position: absolute;
+	top: -5px;
+	left: -5px;
+	width: 25px;
+	height: 25px;
+	text-align: center;
+	line-height: 28px;
+	transition-duration: 0.4s;
+	transform: scale(0);
+  }
+  
+  label img {
+	transition-duration: 0.2s;
+	transform-origin: 50% 50%;
+  }
+  
+  :checked + label:before {
+	content: "✓";
+	background-color: green;
+	transform: scale(1);
+  }
+  
+  :checked + label img {
+	transform: scale(0.9);
+	z-index: -1;
+  }
+
+
+/* ********************* */
+/* 05 Users profile page */
+/* ********************* */
+
+.profile-container{
+	margin-top: 3vh!important;
+	padding-top: 1vh!important ;
+	margin: 15%;
+	padding: 5%;
+}
+
+#profile-card{
+	display:flex;
+	flex-direction:row;
+
+}
+
+.information {
+	width: 70%;
+}
+
+.infos {
+	width: 40%;
+	padding: 0;
+	flex: row;
+}
+
+.profil-photo{
+	padding:8%;
+
+}
+
+.profile-pic {
+	border-radius: 50%;
+    width: 87%;
+    height: 50%;
+	object-fit: cover;
+
+}
+.update-btn {
+	width: 60%;
+}
+.cancel-btn {
+	width: 40%;
+}
+
+#edit_div {
+	display: none;
+}
+
+.gallery-container {
+	width: 60%;
+	background-color: #D3D3D3;
+}
+
+.gallery {
+	width: 33.33%;
+	min-width: 200px;
+	min-height: auto;
+}
+
+.edit-btn {
+	width: 40%;
+}
+
+.del-btn {
+	width: 40%;
+}
+
+.card-img-top {
+	border: 1px solid grey;
+}
+
+.input-grpup-append{
+	height:auto;
+	width:1vw;
+}
+
+#button-add{
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	border: 1px solid black;
+
+}
+
+@media screen and (max-width:425px)
+{
+	.profile-container{
+		margin:auto;
+		padding:auto;
+	}
+	#profile-card{
+		display: flex;
+		flex-direction: column;
+		height: auto;
+	}
+	.infos {
+		width: 100%;
+	}
+
+	.gallery-container {
+		height: 50vh;
+		width: 100%;
+	}
+}

@@ -1,12 +1,11 @@
 <?php
-    //db params
-    define('DB_HOST', 'localhost');
+
+$hostname = 'http://'.getenv('HTTP_HOST');
+    define('DB_HOST', 'mysql:3306');
     define('DB_USER', 'root');
-    define('DB_PASS', '');
-    define('DB_NAME', 'mydb');
-    // app root
-    define('APPROOT', dirname(dirname(__FILE__)));
-    //url root
-    define('URLROOT', 'http://localhost/camagru');
-    //sit name
-    define('SITENAME', 'Camagru');
+    define('DB_PWD', 'tiger');
+    define('DB_NAME', 'camagru_db');
+
+    define('CAMAGRU_ROOT', dirname(dirname(__FILE__)));
+    define('URL_ROOT', $hostname.'/camagru');
+    define('SITE_NAME', 'Camagru');

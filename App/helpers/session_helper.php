@@ -1,43 +1,38 @@
 <?php
     session_start();
-    //flash message helper
-    function flash($name = '', $message = '', $class = 'aLert alert-success')
+
+    function pop_up($name = '', $msg = '',  $class = 'alert alert-success')
     {
         if (!empty($name))
         {
-            if(!empty($message) && empty($_SESSION[$name]))
+            if (!empty($msg) && empty($_SESSION[$name]))
             {
-                if(!empty($_SESSION[$name]))
-                {
-                    unset($_SESSION['name']);
-                }
+                if (!empty($_SESSION[$name]))
+                    unset($_SESSION[$name]);
+                if (!empty($_SESSION[$name. '_class']))
+                    unset($_SESSION[$name. '_class']);
 
-                if (!empty($_SESSION[$name . '_class']))
-                {
-                    unset($_SESSION[$name . '_class']);
-                }
-
-                $_SESSION[$name] = $message;
-                $_SESSION[$name . '_class'] = $class;
-
+                $_SESSION[$name] = $msg;
+                $_SESSION[$name. '_class'] = $class;
             }
-            else if (empty($message) && !empty($_SESSION[$name]))
+            else if (empty($msg) && !empty($_SESSION[$name]))
             {
-                $class = !empty($_SESSION[$name . '_class']) ? $_SESSION[$name . '_class'] : '';
-                echo '<div class="' . $class . '"id="msg-flash">' . $_SESSION[$name] . '</div>';
+                $class = !empty($_SESSION[$name. '_class']) ? $_SESSION[$name. '_class'] : '';
+                echo '<div class="'.$class.'" id="msg">'.$_SESSION[$name]. '</div>';
                 unset($_SESSION[$name]);
-                unset($_SESSION[$name . '_class']);
+                unset($_SESSION[$name. '_class']);
             }
-
         }
-
     }
 
-    function islogged()
+    function redirect($page){
+        echo "<script>location.replace('". URL_ROOT . '/' . $page."')</script>";
+    }
+
+    function isLogged()
     {
         if (isset($_SESSION['user_id']))
             return true;
         else
             return false;
     }
-

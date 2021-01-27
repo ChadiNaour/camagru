@@ -1,194 +1,102 @@
 <?php
-    class Posts extends Controller
-    {
+
+    class Posts extends Controller {
+
         public function __construct()
         {
-            if(!islogged())
-            {
+            if (!isLogged())
                 redirect('users/login');
-            }
 
-            $this->postmodel = $this->model('Post');
-            $this->usermodel = $this->model('User');
+            $this->postModel = $this->model('Post');
+            $this->userModel = $this->model('User');
         }
+
         public function index()
         {
-            //get posts
-            $posts = $this->postmodel->getposts();
-            $likes = $this->postmodel->getlikes();
-            $comments = $this->postmodel->getcomments();
-            //print_r($comments);
+            $postsPerPage = 5;
+            $totalPosts = $this->postModel->count_posts();
+            $totalPages = ceil($totalPosts/$postsPerPage);
+
+            if(isset($_GET['page']) AND !empty($_GET['page']) AND $_GET['page'] > 0 AND $_GET['page'] <= $totalPages){
+                $_GET['page'] = intval($_GET['page']);
+                $currentPage = $_GET['page'];    
+            }
+            else
+            $currentPage = 1;
+
+            $depart = ($currentPage - 1) * $postsPerPage;
+    
+            $post = $this->postModel->getPostspage($depart, $postsPerPage);
+            $likes = $this->postModel->getlikes();
+            $comments = $this->postModel->getcomments();
             $data = [
+                'posts' =>$post,
+                'likes' => $likes,
                 'comments'=> $comments,
-                'posts' => $posts,
-                'likes' => $likes
+                'totalPages' => $totalPages,
+                'currentPage' => $currentPage,
+                'depart' => $depart
             ];
-            //print_r($data['likes']);
-
-            $this->view('Posts/index', $data);
-
+            $this->view('posts/index', $data);
         }
 
         public function add()
         {
-            if($_SERVER['REQUEST_METHOD'] == 'POST')
-            {
-                //sanitize post array
-                $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
-
-
-                $data = [
-                    'title' => trim($_POST['title']),
-                    'body' => trim($_POST['body']),
-                    'user_id' => $_SESSION['user_id'],
-                    'title_err' => '',
-                    'body_err' => ''
-                ];
-                //validate data
-                if (empty($data['title']))
-                {
-                    $data['title_err'] = 'Please enter title';
-                }
-                if (empty($data['body']))
-                {
-                    $data['body_err'] = 'Please enter body text';
-                }
-                
-                //make sure no errors
-                if (empty($data['title_err']) && empty($data['body_err']))
-                {
-                    
-                    //validated
-                    if ($this->postmodel->addpost($data))
-                    {
-                        echo "dkhl";
-                        flash('post_message', 'Post Added');
-                        redirect('posts');
-                    }
-                    else
-                    {
-                        die('tkhawr');
-                    }
-                    
-                }
-                else
-                    $this->view('Posts/add', $data);
-            }
-            else
-            {
-                $data = [
-                    'title' => '',
-                    'body' => ''
-                ];
-
-                $this->view('Posts/add', $data);
-            }
-        }
-
-        public function edit($id)
-        {
-            if($_SERVER['REQUEST_METHOD'] == 'POST')
-            {
-                //sanitize post array
-                $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
-
-
-                $data = [
-                    'id' => $id,
-                    'title' => trim($_POST['title']),
-                    'body' => trim($_POST['body']),
-                    'user_id' => $_SESSION['user_id'],
-                    'title_err' => '',
-                    'body_err' => ''
-                ];
-
-                //validate data
-                if (empty($data['title']))
-                {
-                    $data['title_err'] = 'Please enter title';
-                }
-                if (empty($data['body']))
-                {
-                    $data['body_err'] = 'Please enter body text';
-                }
-
-                //make sure no errors
-                if (empty($data['title_err']) && empty($data['body_err']))
-                {
-                    //validated
-                    if ($this->postmodel->editpost($data))
-                    {
-                        flash('post_message', 'Post Edited');
-                        redirect('posts');
-                    }
-                    else
-                    {
-                        die('tkhawr');
-                    }
-                    
-                }
-                else
-                    $this->view('Posts/add', $data);
-            }
-            else
-            {
-                //get exinsting post
-                $post = $this->postmodel->getpostbyid($id);
-                //check for owner
-                if ($post->user_id != $_SESSION['user_id'])
-                    redirect('posts');
-
-                $data = [
-                    'id' => $id,
-                    'title' => $post->title,
-                    'body' => $post->body
-                ];
-
-                $this->view('Posts/edit', $data);
-            }
-        }
-
-
-        public function show($id)
-        {
-            $post = $this->postmodel->getpostbyid($id);
-            $user = $this->usermodel->getuserbyid($post->user_id);
-            $likes = $this->postmodel->getlikes();
-            //print_r($likes);
-
             $data = [
-                'post' => $post,
-                'user'=> $user,
-                'likes' => $likes
+                'title' =>'',
+                'content' => ''
             ];
-            $this->view('posts/show', $data);
+            $this->view('posts/add', $data);
         }
 
-        public function delete($id)
+        public function saveImage(){
+		if(isset($_POST['imgBase64']) && isset($_POST['emoticon']))
         {
-            if ($_SERVER['REQUEST_METHOD'] == 'POST')
-            {
-                //get exinsting post
-                $post = $this->postmodel->getpostbyid($id);
-                //check for owner
-                if ($post->user_id != $_SESSION['user_id'])
-                    redirect('posts');
-                if ($this->postmodel->deletepost($id))
-                {
-                    flash('post_message', 'Post Deleted');
-                    redirect('posts');
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $upload_dir = "../public/img/";
+            $img = $_POST['imgBase64'];
+            $emo = $_POST['emoticon'];
+            $img = str_replace('data:image/png;base64,', '', $img);
+            $img = str_replace(' ', '+', $img);
+            $d = base64_decode($img);
+            $file = $upload_dir.mktime().'.png';
+            file_put_contents($file, $d);
+
+            list($srcWidth, $srcHeight) = getimagesize($emo);
+            $src = imagecreatefrompng($emo);
+            $dest = imagecreatefrompng($file);
+            imagecopy($dest, $src, 11,11, 0, 0, $srcWidth, $srcHeight);
+            imagepng($dest, $file, 9);
+            move_uploaded_file($dest, $file);
+
+            $data =[
+                'user_id'  => $_SESSION['user_id'],
+                'path' => $file,
+            ];
+            if($this->postModel->save($data)){
+                
+            }else
+                return false;	  
                 }
-                else
-                    die('tkhawr');
-            }
+        }
+
+        public function edit_post($id)
+        {
+            die($id);
+        }
+
+        public function del_post($post_id)
+        {
+            if($this->postModel->del($post_id))
+                redirect('users/profile');
             else
-            {
-                redirect('posts');
-            }
+                die("error");
         }
 
         public function like(){
-            if(isset($_POST['post_id']) && isset($_POST['user_id']) && isset($_POST['c']) && isset($_POST['like_nbr']) && islogged())
+            
+            
+            if(isset($_POST['post_id']) && isset($_POST['user_id']) && isset($_POST['c']) && isset($_POST['like_nbr']) && isLogged())
             {
                 $data = [
                     'post_id'=> $_POST['post_id'],
@@ -197,51 +105,59 @@
                     'like_nbr' => $_POST['like_nbr']
                 ];
                 print_r($data);
-                $this->postmodel->likes_nbr($data);
+                 $this->postModel->like_nbr($data);
                 if($data['c'] == 'fa fa-heart')
                 {
                   
-                  if($this->postmodel->deleteLike($data))
+                  if($this->postModel->deleteLike($data))
                   {
-
+    
                   }
                   else
                   {
-                    die('wa noud');
+                    die('error');
                   }
                 }
                 else if($data['c'] == 'fa fa-heart-o')
                 {
-                  if($this->postmodel->addLike($data))
+                  
+                  if($this->postModel->addLike($data))
                   {
                   }
                   else
                   {
-                    die('wa noud');
+                    die('error');
                   }
                 }
                    
-            }
+             }
         }
 
         public function comment(){
-
-            if(isset($_POST['c_post_id']) && isset($_POST['c_user_id']) && isset($_POST['content']) && strlen($_POST['content']) <= 255 && islogged())
+            //die("dkhlch");
+            if(isset($_POST['c_post_id']) && isset($_POST['c_user_id']) && isset($_POST['content']) && strlen($_POST['content']) <= 255 && isLogged())
             {
                 $data = [
                     'post_id'=> $_POST['c_post_id'],
                     'user_id' => $_POST['c_user_id'],
                     'content' => $_POST['content'],
                 ];
-                //print_r($data);
-                //die("kaka");
-                $com = $this->usermodel->get_commenter($data['user_id']);
-                $uid = $this->postmodel->getUserByPostId($data['post_id']);
-                $d = $this->usermodel->get_dest($uid->user_id);
-                if($this->postmodel->addComment($data) && $d->notif == 1)
+                //die(print_r($data));
+                //$sender = $this->userModel->gets_user($data['user_id']);
+                // $uid = $this->postModel->getUserByPostId($data['post_id']);
+                // $dest = $this->userModel->gets_user($uid->user_id);
+                if($this->postModel->addComment($data) && $_SESSION['notification'] == 1)
                 {
-                  
-                    //$this->c_send_email($com, $d);
+                        // $to_email = $dest->email;
+                        // $subject = "You get a comment";
+                        // $body = '<p><h1>Your image gets a comment</h1>
+                        //     <br /><br />
+                        //     <br/> 
+                        //     '.$sender->username.' commented on your image.
+                        //     </p>';
+                        // $headers = "Content-type:text/html;charset=UTF-8" . "\r\n";
+                        // $headers .= 'From: <oes-safi@Camagru.ma>' . "\r\n";    
+                        // mail($to_email, $subject, $body, $headers);
                 }
             }
         }
