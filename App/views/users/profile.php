@@ -37,7 +37,7 @@
                     <input type="password" class="form-control" name="new_password" placeholder="Password">
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox"> Recieve email notifications
+                    <input class="form-check-input" name="notifs" type="checkbox" <?php if ($_SESSION['notification']) echo 'checked'; ?>> Recieve email notifications
                 </div>
                 <div class="d-flex my-3 w-100 h-auto mx-auto">
                     <input type="submit" class="update-btn btn btn-outline-success h-auto mx-2 shadow" value="update">
@@ -53,7 +53,6 @@
                     <div class="p-2 mb-3 w-auto h-100">
                         <img class="card-img-top rounded w-100 mb-3 shadow" style="height: 20rem; object-fit:fill;" src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
                         <div class="w-100 h-auto">
-                            <a href="<?php echo URL_ROOT; ?>/posts/edit_post/<?php echo $post->postId ?>"><input type="submit" value="Edit" name="edit" class="edit-btn col-4 btn btn-outline-info shadow h-auto"></a>
                             <a href="<?php echo URL_ROOT; ?>/posts/del_post/<?php echo $post->postId ?>"><input type="submit" value="Delete" name="delete" class="del-btn col-4 btn btn-outline-danger shadow h-auto"></a>
                         </div>
                     </div>

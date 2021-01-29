@@ -42,9 +42,11 @@
 
         public function add()
         {
+            $post = $this->postModel->getPosts();
             $data = [
                 'title' =>'',
-                'content' => ''
+                'content' => '',
+                'posts' =>$post,
             ];
             $this->view('posts/add', $data);
         }
@@ -87,8 +89,12 @@
 
         public function del_post($post_id)
         {
-            if($this->postModel->del($post_id))
+            $post = $this->postModel->getPostById($post_id);
+            if($this->postModel->del($post_id) && $this->postModel->del_comments($post_id) && $this->postModel->del_likes($post_id))
+            {
+                unlink($post->content);
                 redirect('users/profile');
+            }
             else
                 die("error");
         }

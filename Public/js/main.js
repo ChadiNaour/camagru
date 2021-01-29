@@ -19,6 +19,7 @@ if (window.location.href == server_name + '/posts/add')
     function throwError (e) {
         alert(e.name);
     }
+  
         
     document.getElementById('take').addEventListener("click", function(){
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -98,6 +99,7 @@ function menuToggle(){
 
 function saveImage()
 {
+    console.log("s");
     var dataURL = canvas.toDataURL("image/png");
     var params = "imgBase64=" + dataURL + "&emoticon=" + elem;
     var xhr = new XMLHttpRequest();

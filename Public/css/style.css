@@ -182,7 +182,7 @@ i {
 }
 
 #upper-card{
-	height:40vh;
+	height:auto;
 }
 
 #image-canvas-container{
@@ -233,7 +233,7 @@ i {
 }
 
 #thum {
-	height: 20rem;
+	height: 2;
 }
 
 .filters {

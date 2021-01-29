@@ -9,7 +9,7 @@ function hided()
   document.getElementById("navbar").className = "navbar navbar-light";
 }
 </script> -->
-<nav id="navbar" class="navbar navbar-light" style="background-color: white;" onmouseleave="hided()" onmouseenter="showd()">
+<nav id="navbar" class="navbar navbar-light" style="background-color: white;">
         <a class="navbar-brand mx-3" href="<?php echo URL_ROOT ?>/posts"><i class="fa fa-instagram" aria-hidden="true"></i>Camagru</a>
            <!-- <button id="btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapseNavbar" aria-controls="collapseNavbar" aria-expanded="false" aria-label="Toggle navigation"> -->
           <!-- <span class="navbar-toggler-icon"></span> -->
