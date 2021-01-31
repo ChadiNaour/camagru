@@ -46,10 +46,10 @@
             </div>
         </form>
     </div>
-    <div class="gallery-container flex-col border">
+    <div class="gallery-container d-flex flex-wrap border">
         <?php foreach($data['posts'] as $post) :
             if($post->userId == $_SESSION['user_id']): ?>
-                <div class="gallery rounded mb-3 h-auto">
+                <div class="gallery flex-row rounded mb-3 h-auto">
                     <div class="p-2 mb-3 w-auto h-100">
                         <img class="card-img-top rounded w-100 mb-3 shadow" style="height: 20rem; object-fit:fill;" src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
                         <div class="w-100 h-auto">

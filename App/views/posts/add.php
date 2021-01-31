@@ -40,14 +40,14 @@
             </div>
         </div>
     </div>
-    <div class="card card-body shadow p-3 bg-white  rounded text-center" id="thum">
+    <div class="card card-body d-flex flex-row flex-wrap shadow p-3 bg-white  rounded text-center" id="thum">
         <?php $i = 0; foreach($data['posts'] as $post) : if ($i++ < 5) :
                 if($post->userId == $_SESSION['user_id']): ?>
-                    <div class="rounded" id="add-gallery">
+                    <div class="rounded flex-row">
                         <div class="mx-1">
-                            <img class="rounded mb-1 shadow" style="height: 15vh;width:15vh; object-fit:fill;" src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
+                            <img class="rounded mb-1 shadow" style="height: 10vh;width:10vh; object-fit:fill;" src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
                             <div class="w-100 h-auto">
-                                <a href="<?php echo URL_ROOT; ?>/posts/del_post/<?php echo $post->postId ?>"><input type="submit" value="Delete" name="delete" class=" btn btn-outline-danger shadow h-auto"></a>
+                                <a href="<?php echo URL_ROOT; ?>/posts/del_post_cam/<?php echo $post->postId ?>"><input type="submit" value="Delete" name="delete" class=" btn btn-outline-danger shadow h-auto"></a>
                             </div>
                         </div>
                     </div>

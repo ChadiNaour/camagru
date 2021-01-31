@@ -82,10 +82,10 @@
                 }
         }
 
-        public function edit_post($id)
-        {
-            die($id);
-        }
+        // public function edit_post($id)
+        // {
+        //     die($id);
+        // }
 
         public function del_post($post_id)
         {
@@ -94,6 +94,18 @@
             {
                 unlink($post->content);
                 redirect('users/profile');
+            }
+            else
+                die("couldn't delete the post");
+        }
+
+        public function del_post_cam($post_id)
+        {
+            $post = $this->postModel->getPostById($post_id);
+            if($this->postModel->del($post_id) && $this->postModel->del_comments($post_id) && $this->postModel->del_likes($post_id))
+            {
+                unlink($post->content);
+                redirect('posts/add');
             }
             else
                 die("error");
@@ -149,22 +161,32 @@
                     'content' => $_POST['content'],
                 ];
                 //die(print_r($data));
-                //$sender = $this->userModel->gets_user($data['user_id']);
-                // $uid = $this->postModel->getUserByPostId($data['post_id']);
-                // $dest = $this->userModel->gets_user($uid->user_id);
+                $sender = $this->userModel->gets_user($data['user_id']);
+                $uid = $this->postModel->getUserByPostId($data['post_id']);
+                $dest = $this->userModel->gets_user($uid->user_id);
                 if($this->postModel->addComment($data) && $_SESSION['notification'] == 1)
                 {
-                        // $to_email = $dest->email;
-                        // $subject = "You get a comment";
-                        // $body = '<p><h1>Your image gets a comment</h1>
-                        //     <br /><br />
-                        //     <br/> 
-                        //     '.$sender->username.' commented on your image.
-                        //     </p>';
-                        // $headers = "Content-type:text/html;charset=UTF-8" . "\r\n";
-                        // $headers .= 'From: <oes-safi@Camagru.ma>' . "\r\n";    
-                        // mail($to_email, $subject, $body, $headers);
+                        $to_email = $dest->email;
+                        $subject = "You get a comment";
+                        $body = '<p><h1>Your image gets a comment</h1>
+                            <br /><br />
+                            <br/> 
+                            '.$sender->username.' commented on your image.
+                            </p>';
+                        $headers = "Content-type:text/html;charset=UTF-8" . "\r\n";
+                        $headers .= 'From: <camagru.cnaour1@Camagru.ma>' . "\r\n";    
+                        mail($to_email, $subject, $body, $headers);
                 }
             }
+        }
+
+        public function delete_comments($commentId)
+        {
+            if($this->postModel->del_cmmt($commentId))
+            {
+                redirect('posts');
+            }
+            else
+                die("error");
         }
     }
