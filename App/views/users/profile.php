@@ -51,9 +51,10 @@
             if($post->userId == $_SESSION['user_id']): ?>
                 <div class="gallery flex-row rounded mb-3 h-auto">
                     <div class="p-2 mb-3 w-auto h-100">
-                        <img class="card-img-top rounded w-100 mb-3 shadow" style="height: 20rem; object-fit:fill;" src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
+                        <img class="card-img-top rounded w-100 mb-3 shadow" style="height: 12rem; object-fit:fill;" src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
                         <div class="w-100 h-auto">
                             <a href="<?php echo URL_ROOT; ?>/posts/del_post/<?php echo $post->postId ?>"><input type="submit" value="Delete" name="delete" class="del-btn col-4 btn btn-outline-danger shadow h-auto"></a>
+                            <a href="<?php echo URL_ROOT; ?>/users/set_pdp/<?php echo $post->postId ?>"><input type="submit" value="Set prof-pic" name="set" class="set-btn col-4 btn btn-outline-info shadow h-auto"></a>
                         </div>
                     </div>
                 </div>

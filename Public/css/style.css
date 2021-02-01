@@ -55,6 +55,7 @@ i {
 	height: 1.5rem;
 	border-radius: 50%;
 	object-fit: cover;
+	border: solid 1px white;
 }
 
 .list-profile-btn {
@@ -209,7 +210,6 @@ i {
 	right:0;
 	width:100%;
 	height:100%;
-	border: solid 1px red;
 }
 
 .image-footer{
@@ -222,7 +222,7 @@ i {
 }
 
 .buttons {
-	width: 50%;
+	width: auto;
 	height: auto;
 }
 
@@ -239,10 +239,11 @@ i {
 .filters {
 	/* position:relative;
 	left:0; */
-	width: 40%;
-	margin:0;
+	width: 60%;
+	height: auto;
+	margin: 0 auto;
+	margin-bottom: 1%;
 	padding:0;
-	margin-right: 7% ;
 }
 
 .filter_img {
@@ -394,5 +395,56 @@ label {
 	.gallery-container {
 		height: 50vh;
 		width: 100%;
+	}
+}
+
+@media screen and (max-width:768px)
+{
+	.filters {
+		/* position:relative;
+		left:0; */
+		width: 100%;
+		height: auto;
+		margin: 0 auto;
+		margin-bottom: 1%;
+		padding:0;
+	}
+}
+
+@media screen and (max-width:425px)
+{
+	.filters {
+		/* position:relative;
+		left:0; */
+		width: 1000vw;
+		height: auto;
+		margin: 0 auto;
+		margin-bottom: 1%;
+		padding:0;
+	}
+
+	.column {
+		float: left;
+		width: 30%;
+		height: auto;
+	}
+}
+
+@media screen and (max-width:375px)
+{
+	.filters {
+		/* position:relative;
+		left:0; */
+		width: 1000vw;
+		height: auto;
+		margin: 0 auto;
+		margin-bottom: 1%;
+		padding:0;
+	}
+
+	.column {
+		float: left;
+		width: 40%;
+		height: auto;
 	}
 }

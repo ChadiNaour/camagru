@@ -9,8 +9,8 @@ function hided()
   document.getElementById("navbar").className = "navbar navbar-light";
 }
 </script> -->
-<nav id="navbar" class="navbar navbar-light" style="background-color: white;">
-        <a class="navbar-brand mx-3" href="<?php echo URL_ROOT ?>/posts"><i class="fa fa-instagram" aria-hidden="true"></i>Camagru</a>
+<nav id="navbar" class="navbar navbar-dark bg-dark" style="background-color: white;">
+        <a class="navbar-brand text-white mx-3" href="<?php echo URL_ROOT ?>/posts"><i class="fa fa-instagram" aria-hidden="true"></i>Camagru</a>
            <!-- <button id="btn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapseNavbar" aria-controls="collapseNavbar" aria-expanded="false" aria-label="Toggle navigation"> -->
           <!-- <span class="navbar-toggler-icon"></span> -->
           </button>
@@ -18,15 +18,15 @@ function hided()
       <!-- <div class="navbar-nav ml-auto" style="background-color:red;"> -->
         <?php if (isset($_SESSION['user_id'])) : ?>
           <div class="menu col-4 d-flex justify-content-end align-items-center w-25 h-auto">
-            <a href="<?php echo URL_ROOT ?>/users/profile"><img class="profile-btn profile border border-dark mx-3" src="<?php echo $_SESSION['user_img'] ?>" alt="profile"></a>
+            <a href="<?php echo URL_ROOT ?>/users/profile"><img class="profile-btn profile mx-3" src="<?php echo $_SESSION['user_img'] ?>" alt="profile"></a>
             <!-- <div class="list-toggle" style="background-color:blue;"><img class="list-btn profile border border-dark mx-3" src="<?php echo $_SESSION['user_img'] ?>" alt="profile"></a></div> -->
-            <a href="<?php echo URL_ROOT ?>/posts/add"><i class="fa fa-camera mt-1" style="font-size:26px; color:#555;"></i></a>
-            <a class="btn btn-sm mx-1" href="<?php echo URL_ROOT ?>/users/logout" ><img class="out-btn" src="https://www.flaticon.com/svg/static/icons/svg/1250/1250678.svg" ></a>
+            <a href="<?php echo URL_ROOT ?>/posts/add"><i class="fa fa-camera text-white mt-1" style="font-color:white; font-size:26px; color:#555;"></i></a>
+            <a class="btn btn-sm mx-1" href="<?php echo URL_ROOT ?>/users/logout" ><i class="fa fa-sign-out text-white" style="font-color:white; font-size:26px; color:#555;"></i></a>
           </div>
         <?php else : ?>
-        <div class="col-4 d-flex justify-content-end align-items-center">
-          <a class="btn btn-sm btn-outline-secondary mx-2" href="<?php echo URL_ROOT ?>/users/login">Log in</a>
-          <a class="btn btn-sm btn-outline-secondary" href="<?php echo URL_ROOT ?>/users/signup">Sign up</a>
+        <div class="col-4 d-flex justify-content-end align-items-center mr-1">
+          <a class="btn btn-sm btn-outline-light mx-2" href="<?php echo URL_ROOT ?>/users/login">Log in</a>
+          <a class="btn btn-sm btn-outline-light" href="<?php echo URL_ROOT ?>/users/signup">Sign up</a>
         </div>
         <?php endif; ?>
     </div>

@@ -1,13 +1,16 @@
 if (window.location.href == server_name + '/posts/add')
 {
+    console.log("in");
     var video = document.getElementById('video'),
         canvas = document.getElementById('pic-canvas'),
         context = canvas.getContext('2d'),
         uploadImg = document.getElementById('upload');
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.oGetUserMedia || navigator.msGetUserMedia;
     if(navigator.getUserMedia){
+        console.log("inusermedia");
         navigator.getUserMedia({video:true}, streamWebCam, throwError);
     }
+
     function streamWebCam (stream) {
         video.srcObject = stream;
         video.play();
@@ -16,6 +19,7 @@ if (window.location.href == server_name + '/posts/add')
         canvas.width = width;
         canvas.height = height;
     }
+
     function throwError (e) {
         alert(e.name);
     }
@@ -43,13 +47,13 @@ if (window.location.href == server_name + '/posts/add')
     function choose_filter()
     {
         if (mask.checked == true)
-            elem.src = "../public/img/mask.png";
+            elem.src = "../public/img/mask1.png";
         if (covid.checked == true)
-            elem.src = "../public/img/covid.png";
+            elem.src = "../public/img/covid2.png";
         if (ball.checked == true)
-            elem.src = "../public/img/ball.png";
+            elem.src = "../public/img/heart.png";
         if (hat.checked == true)
-            elem.src = "../public/img/hat.png";
+            elem.src = "../public/img/bird.png";
 
         document.getElementById('vi').appendChild(elem);
         document.getElementById('take').disabled = false;

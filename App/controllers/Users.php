@@ -352,10 +352,7 @@
                     redirect('users/profile');
                 }
             }
-            else
-                redirect('users/profile');
-
-            if(!empty($_POST['new_fullname']))
+            else if(!empty($_POST['new_fullname']))
             {
                 if($this->userModel->update_fullname($_POST['new_fullname'], $data['id']))
                 {
@@ -369,22 +366,29 @@
                     redirect('users/profile');
                 }
             }
-            else
-                redirect('users/profile');
-            
-            if(!empty($_POST['new_email']))
+            else if(!empty($_POST['new_email']))
             {
-                if($this->userModel->update_email($_POST['new_email'], $data['id']))
+                if (filter_var($_POST['new_email'], FILTER_VALIDATE_EMAIL) && !$this->userModel->findUsrByEmail($_POST['new_email']))
                 {
-                    pop_up('updated', 'You need to verify the new email ✓', 'pop alert alert-success w-50 mx-auto text-center');
-                    $_SESSION['user_fullname'] = $_POST['new_fullname'];
+                    if($this->userModel->update_email($_POST['new_email'], $data['id']))
+                    {
+                        pop_up('updated', 'Email updated', 'pop alert alert-success w-50 mx-auto text-center');
+                        $_SESSION['user_email'] = $_POST['new_email'];
+                        redirect('users/profile');
+                    }
+                    else
+                    {
+                        pop_up('updated', 'Email not updated', 'pop alert alert-danger w-50 mx-auto text-center');
+                        redirect('users/profile');
+                    }
+                }
+                else
+                {
+                    pop_up('updated', 'Email not updated', 'pop alert alert-danger w-50 mx-auto text-center');
                     redirect('users/profile');
                 }
             }
-            else
-                redirect('users/profile');
-            
-            if(!empty($_POST['new_password']))
+            else if(!empty($_POST['new_password']))
             {
                 if ((strlen($_POST['new_password']) < 6) || (!preg_match('@[A-Z]@', $_POST['new_password'])) || (!preg_match('@[a-z]@', $_POST['new_password'])) || (!preg_match('@[0-9]@', $_POST['new_password'])))
                 {
@@ -406,37 +410,51 @@
                     }
                 }
             }
+            else if (($_SESSION['notification'] == 1 && empty($_POST['notifs'])) || ($_SESSION['notification'] == 0 && !empty($_POST['notifs'])))
+            {
+                if(!empty($_POST['notifs']))
+                {
+                    if($this->userModel->update_notifs($data['id'], 1))
+                    {
+                        pop_up('updated', 'notification updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
+                        $_SESSION['notification'] = 1;
+                        redirect('users/profile');;
+                    }
+                    else
+                    {
+                        pop_up('updated', 'notification not updated', 'pop alert alert-danger w-50 mx-auto text-center');
+                        redirect('users/profile');
+                    }
+                }
+                else if (empty($_POST['notifs']))
+                {
+                    if($this->userModel->update_notifs($data['id'], 0))
+                    {
+                        pop_up('updated', 'Notification updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
+                        $_SESSION['notification'] = 0;
+                        redirect('users/profile');;
+                    }
+                    else
+                    {
+                        pop_up('updated', 'notification not updated', 'pop alert alert-danger w-50 mx-auto text-center');
+                        redirect('users/profile');
+                    }
+                }
+            }
             else
                 redirect('users/profile');
+        }
 
-            if(!empty($_POST['notifs']))
+        public function set_pdp($post_id)
+        {
+            $post = $this->postModel->getPostById($post_id);
+            if ($this->userModel->setPhoto($post->content))
             {
-                if($this->userModel->update_notifs($data['id'], 1))
-                {
-                    pop_up('updated', 'notification updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
-                    $_SESSION['notification'] = 1;
-                    redirect('users/profile');;
-                }
-                else
-                {
-                    pop_up('updated', 'notification not updated', 'pop alert alert-danger w-50 mx-auto text-center');
-                    redirect('users/profile');
-                }
+                $user = $this->userModel->gets_user($_SESSION['user_id']);
+                $_SESSION['user_img'] = $user->profile_img;
+                redirect('users/profile');
             }
             else
-            {
-                if($this->userModel->update_notifs($data['id'], 0))
-                {
-                    pop_up('updated', 'Notification updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
-                    $_SESSION['notification'] = 0;
-                    redirect('users/profile');;
-                }
-                else
-                {
-                    pop_up('updated', 'notification not updated', 'pop alert alert-danger w-50 mx-auto text-center');
-                    redirect('users/profile');
-                }
-            }
-
+                die('error');
         }
     }

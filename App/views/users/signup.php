@@ -1,4 +1,6 @@
 <?php require_once CAMAGRU_ROOT . '/Views/inc/header.php';
+        require_once CAMAGRU_ROOT . '/Views/inc/nav.php';
+
     if (isLogged()){
         redirect('posts');
         exit();
@@ -36,7 +38,7 @@
                     <span class="invalid-feedback"><?php if (!empty($data['err_confirmPwd'])) echo $data['err_confirmPwd'] ?></span>
                 </div>
                 <div class="row mb-4 w-75 ml-5 w-75 m-auto">
-                    <input type="submit" value="Sign up" class="btn btn-primary btn-block">
+                    <input type="submit" value="Sign up" class="btn btn-dark btn-block">
                 </div>
                 <div class="row">
                     <p>Already have an account? <a href="<?php echo URL_ROOT ?>/users/login" style="text-decoration: none;">Log in</a></p>

@@ -95,20 +95,20 @@
   <ul class="pagination justify-content-center">
     <?php 
     if(($data['currentPage']-1) > 0)
-        echo '<li class="active"><a class="page-link" href="' . URL_ROOT . '/posts?page='.($data['currentPage']-1).'"><</a></li>';
+        echo '<li class="active"><a class="page-link" style="background-color:black; color:white;" href="' . URL_ROOT . '/posts?page='.($data['currentPage']-1).'"><</a></li>';
     else
-        echo '<li class="active"><a class="page-link"><</a></li>';
+        echo '<li class="active"><a class="page-link" style="background-color:black; color:white;"><</a></li>';
 
     for($i = 1; $i <= $data['totalPages']; $i++){
         if($i == $data['currentPage'])
-            echo '<li class="active"><a class="page-link">'.$i.'</a></li>';
+            echo '<li class="active"><a class="page-link" style="background-color:black; color:white;">'.$i.'</a></li>';
         else
-            echo '<li class="active"><a class="page-link" href="' . URL_ROOT . '/posts?page='.$i.'">'.$i.'</a></li>';
+            echo '<li class="active"><a class="page-link" style="background-color:black; color:white;" href="' . URL_ROOT . '/posts?page='.$i.'">'.$i.'</a></li>';
     }
     if(($data['currentPage']+1) <= $data['totalPages'])
-        echo '<li class="active"><a class="page-link" href="' . URL_ROOT . '/posts?page='.($data['currentPage']+1).'">></a></li>';
+        echo '<li class="active"><a class="page-link" style="background-color:black; color:white;" href="' . URL_ROOT . '/posts?page='.($data['currentPage']+1).'">></a></li>';
     else
-        echo '<li class="active""><a class="page-link">></a></li>';
+        echo '<li class="active""><a class="page-link" style="background-color:black; color:white;">></a></li>';
 
     ?>
   </ul>
