@@ -56,6 +56,7 @@
         {
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
             $upload_dir = "../public/img/";
+            chmod("../public/img/", 0777);
             $img = $_POST['imgBase64'];
             $emo = $_POST['emoticon'];
             $img = str_replace('data:image/png;base64,', '', $img);

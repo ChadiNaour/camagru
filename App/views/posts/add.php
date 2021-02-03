@@ -34,7 +34,7 @@
             </div>
             <div class="buttons row  d-flex justify-content-center mx-auto">
                 <input type="button" class="column btn btn-warning shadow w-auto h-auto mx-1" value="Take" id="take" onclick="enable()" disabled>
-                <input type="button" class="column btn btn-success shadow w-auto h-auto mx-1" value="Save" id="save" onclick="saveImage()">
+                <input type="button" class="column btn btn-success shadow w-auto h-auto mx-1" value="Save" id="save" onclick="saveImage()" disabled>
                 <input type="button" class="column btn btn-danger shadow w-auto h-auto mx-1" value="Clear" id="clear">
                 <input type="file" class="column form-control shadow w-auto h-auto mx-1" value="Upload" id="upload" accept="image/jpg, image/jpeg, image/png">
             </div>

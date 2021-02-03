@@ -7,7 +7,7 @@
         <div class="post-container card card-body mb-3 shadow m-auto">
             <div class="d-flex justify-content-left  mb-2 mx-2">
                 <img class="post-user  shadow my-auto" src="<?php echo $post->profile_img ?>" alt="profile">
-                <h4 class="card-title mx-2 my-auto h-auto" style="font-size: 1.2rem;"><?php echo $post->username; ?></h4>
+                <h4 class="card-title mx-2 my-auto h-auto" style="font-size: 1.2rem;"><?php echo htmlspecialchars($post->username); ?></h4>
             </div>
             <div class="">
                 <img class="post-img card-img-top" src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
@@ -73,7 +73,7 @@
                                 <div class="media-list" style=" padding:0px!important; magrin:0px!important; list-style-type:none;">
                                     <li class="media">                    
                                         <div class="media-body">
-                                            <strong class="text-dark d-inline"><?php echo $comment->username;?></strong>
+                                            <strong class="text-dark d-inline"><?php echo htmlspecialchars($comment->username);?></strong>
                                             <p style="magrin:0px; padding:0px; display:inline;" class="d-inline"><?php echo htmlspecialchars($comment->content);?></p>
                                             <?php if ($comment->userId == $_SESSION['user_id']): ?><a href="<?php echo URL_ROOT ?>/posts/delete_comments/<?php echo $comment->commentId ?>" class="" style="  position: relative; float: right;"><i class="fa fa-trash"></i></a><?php endif; ?>
                                         </div>

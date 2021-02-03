@@ -6,10 +6,10 @@ if (window.location.href == server_name + '/posts/add')
         uploadImg = document.getElementById('upload');
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.oGetUserMedia || navigator.msGetUserMedia;
     if(navigator.getUserMedia){
-        navigator.getUserMedia({video:true}, streamWebCam, throwError);
+        navigator.getUserMedia({video:true}, camerastream, error_r);
     }
 
-    function streamWebCam (stream) {
+    function camerastream (stream) {
         video.srcObject = stream;
         video.play();
         width = stream.getTracks()[0].getSettings().width;
@@ -18,7 +18,7 @@ if (window.location.href == server_name + '/posts/add')
         canvas.height = height;
     }
 
-    function throwError (e) {
+    function error_r (e) {
         alert(e.name);
     }
   
@@ -26,6 +26,7 @@ if (window.location.href == server_name + '/posts/add')
     document.getElementById('take').addEventListener("click", function(){
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
         context.drawImage(elem, 0, 0, 140, 140);
+        document.getElementById('save').disabled = false;
     });
 
     document.getElementById('clear').addEventListener("click", function(){

@@ -11,8 +11,8 @@
     <div class="infos">
         <div class="profil-photo" style="text-align: center;">
             <img src="<?php echo $_SESSION['user_img'] ?>" class="profile-pic card-img-top shadow" alt="profile">
-            <span class="p-name vcard-fullname d-block overflow-hidden mt-2"><h3 class="profile-fullname" style="font-size: 1.5rem;"><strong><?php echo ucfirst($_SESSION['user_fullname']) ?></h3></strong></span>
-            <span class="p-nickname vcard-username d-block"><h5 class="profile-username text-muted mx-2" style="font-size: 1rem;"><?php echo $_SESSION['user_username'] ?></h5></span>
+            <span class="p-name vcard-fullname d-block overflow-hidden mt-2"><h3 class="profile-fullname" style="font-size: 1.5rem;"><strong><?php echo htmlspecialchars(ucfirst($_SESSION['user_fullname'])) ?></h3></strong></span>
+            <span class="p-nickname vcard-username d-block"><h5 class="profile-username text-muted mx-2" style="font-size: 1rem;"><?php echo htmlspecialchars($_SESSION['user_username']) ?></h5></span>
         </div>
         <div class="card-body">
             <span class="row p-name vcard-email d-block overflow-hidden"><strong><small class="profile-email" style="font-size: 1rem;"><i class="fa fa-envelope"></i><?php echo $_SESSION['user_email'] ?></small></strong></span>

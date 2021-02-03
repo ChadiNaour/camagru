@@ -75,7 +75,7 @@
                                 <br /><br />
                                 <br/>
                                 To verify your account click here 
-                                <a href="'.URL_ROOT.'/users/verification/?token='.$token.'">click here.</a>
+                                <a target="_blank" href="'.URL_ROOT.'/users/verification/?token='.$token.'">click here.</a>
                                 </p>
                                 <p>
                                     <br />--------------------------------------------------------
@@ -86,7 +86,7 @@
                             if (mail($to_email, $subject, $body, $headers))
                                     pop_up('signup_ok', 'Verify your email to login');
                                 else
-                                    pop_up('signup_ok', 'Can not send email verificaton');
+                                    pop_up('signup_ok', 'Can not send email verificaton', 'alert alert-danger');
                                 redirect('users/login');   
                         }
                         else
@@ -143,7 +143,7 @@
                             $this->createUserSession($loggedUser);
                         else
                         {
-                            pop_up('not_verified', 'Please verify you email !!', 'alert alert-danger');
+                            pop_up('not_verified', 'you need to verify you email', 'alert alert-danger');
                             redirect('users/login');
                         }
                     }
@@ -204,7 +204,7 @@
                     if (!$this->userModel->verify_return($data['forgotEmail']))
                     {
                         $data['err_forgotEmail'] = 'Email not verified';
-                        pop_up('signup_ok', 'you need to verify your account');
+                        pop_up('signup_ok', 'you need to verify your account', 'alert alert-danger');
                         redirect('users/login');
                     }
                 }
@@ -220,7 +220,7 @@
                             <br /><br />
                             <br/>
                             To reset your password click here 
-                            <a href="'.URL_ROOT.'/users/newpassword/?token='.$user->token.'&id='.$user->id.'">click here.</a>
+                            <a target="_blank" href="'.URL_ROOT.'/users/newpassword/?token='.$user->token.'&id='.$user->id.'">click here.</a>
                             </p>
                             <p>
                                 <br />--------------------------------------------------------
@@ -234,7 +234,7 @@
                             redirect('users/login');
                         }
                         else
-                            pop_up('signup_ok', 'Can not send email verificaton, please retry', 'alert alert-danger');
+                            pop_up('signup_ok', 'Can not send email verificaton', 'alert alert-danger');
                 }
                 $this->view('users/forgot', $data); 
             }
@@ -264,7 +264,7 @@
                 }
                 else
                 {
-                    pop_up('signup_ok', 'Failed to verify your accout', 'alert alert-danger text-center');
+                    pop_up('signup_ok', 'Failed to verify your account', 'alert alert-danger text-center');
                     redirect('users/login');
                 }
             }
@@ -404,7 +404,7 @@
             {
                 if ((strlen($_POST['new_password']) < 6) || (!preg_match('@[A-Z]@', $_POST['new_password'])) || (!preg_match('@[a-z]@', $_POST['new_password'])) || (!preg_match('@[0-9]@', $_POST['new_password'])))
                 {
-                    pop_up('updated', 'Password not valid ✓', 'pop alert alert-danger w-50 mx-auto text-center');
+                    pop_up('updated', 'Password not valid', 'pop alert alert-danger w-50 mx-auto text-center');
                     redirect('users/profile');
                 }
                 else
