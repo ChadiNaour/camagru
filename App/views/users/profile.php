@@ -49,12 +49,12 @@
     <div class="gallery-container d-flex flex-wrap border">
         <?php foreach($data['posts'] as $post) :
             if($post->userId == $_SESSION['user_id']): ?>
-                <div class="gallery flex-row rounded mb-3 h-auto">
-                    <div class="p-2 mb-3 w-auto h-100">
+                <div class="gallery flex-row rounded mb-1 h-auto">
+                    <div class="p-2 mb-3 w-auto h-100 text-center">
                         <img class="card-img-top rounded w-100 mb-3 shadow" style="height: 12rem; object-fit:fill;" src="<?php echo $post->content; ?>" alt="<?php echo $post->title; ?>">
-                        <div class="w-100 h-auto">
-                            <a href="<?php echo URL_ROOT; ?>/posts/del_post/<?php echo $post->postId ?>"><input type="submit" value="Delete" name="delete" class="del-btn col-4 btn btn-outline-danger shadow h-auto"></a>
-                            <a href="<?php echo URL_ROOT; ?>/users/set_pdp/<?php echo $post->postId ?>"><input type="submit" value="Set prof-pic" name="set" class="set-btn col-4 btn btn-outline-info shadow h-auto"></a>
+                        <div class="w-100 h-auto justify-content-center">
+                            <a href="<?php echo URL_ROOT; ?>/posts/del_post/<?php echo $post->postId ?>" title="Delete"><i class="fa fa-trash" style="font-size:26px; color:#f90643;"></i></a>
+                            <a href="<?php echo URL_ROOT; ?>/users/set_pdp/<?php echo $post->postId ?>" title="set profile pic"></title><i class="fa fa-user" style="font-size:26px; color:#0080ff;"></i></a>
                         </div>
                     </div>
                 </div>

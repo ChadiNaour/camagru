@@ -10,6 +10,7 @@
 
 body {
 	background-color: whitesmoke;
+	padding-bottom: 50px;
 }
 
 i {
@@ -51,16 +52,15 @@ i {
 }
 
 .profile-btn {
-	width: 1.5rem;
-	height: 1.5rem;
+	width: 1.8rem;
+	height: 1.8rem;
 	border-radius: 50%;
 	object-fit: cover;
-	border: solid 1px white;
 }
 
 .list-profile-btn {
-	width: 2rem;
-	height: 2rem;
+	width: 1.7rem;
+	height: 1.7rem;
 	border-radius: 50%;
 	object-fit: cover;
 }
@@ -130,8 +130,8 @@ i {
 	margin-bottom: 0px;
 }
 .post-user {
-	width: 7%;
-	height: auto;
+	width: 3.9vw;
+	height: 3.6vw;
 	border-radius: 50%;  
 	border: 1px solid black;
 	object-fit: cover;
@@ -147,8 +147,8 @@ i {
 	}
 
 	.post-user {
-		width: 6vw;
-		height: auto;
+		width: 8vw;
+		height: 7.5vw;
 		border-radius: 50%;  
 		border: 1px solid black;
 		object-fit: cover;
@@ -232,18 +232,28 @@ i {
 	height: auto;
 }
 
+
+
 /* #thum {
 	height: 2;
 } */
 
 .filters {
-	/* position:relative;
-	left:0; */
+	position:relative;
+	left:0;
 	width: 60%;
 	height: auto;
 	margin: 0 auto;
 	margin-bottom: 1%;
 	padding:0;
+}
+
+#filters{
+	position: relative;
+	top: -90%;
+	left: -37%;
+	width: 4.8vw;
+	height: 5vw;
 }
 
 .filter_img {
@@ -325,12 +335,13 @@ label {
 }
 
 .profile-pic {
-	border-radius: 50%;
-    width: 87%;
-    height: 50%;
+	border-radius: 100%;
+    min-width: 20vw; 
+	min-height: 20vw;
 	object-fit: cover;
 
 }
+
 .update-btn {
 	width: 60%;
 }
@@ -393,7 +404,6 @@ label {
 	}
 
 	.gallery-container {
-		height: 50vh;
 		width: 100%;
 	}
 }
@@ -404,7 +414,6 @@ label {
 		/* position:relative;
 		left:0; */
 		width: 100%;
-		height: auto;
 		margin: 0 auto;
 		margin-bottom: 1%;
 		padding:0;
@@ -427,6 +436,22 @@ label {
 		float: left;
 		width: 30%;
 		height: auto;
+	}
+
+	.profile-pic {
+		border-radius: 100%;
+		width: 60vw; 
+		height: 60vw;
+		object-fit: cover;
+	
+	}
+
+	#filters{
+		position: relative;
+		top: -97%;
+		left: -37%;
+		width: 4.8vw;
+		height: 5vw;
 	}
 }
 

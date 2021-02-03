@@ -75,11 +75,12 @@
                 'user_id'  => $_SESSION['user_id'],
                 'path' => $file,
             ];
-            if($this->postModel->save($data)){
-                
-            }else
-                return false;	  
-                }
+            if($this->postModel->save($data))
+            {
+            }
+            else
+                return false;
+            }
         }
 
         // public function edit_post($id)

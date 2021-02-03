@@ -1,4 +1,6 @@
-<?php require_once CAMAGRU_ROOT . '/Views/inc/header.php'; ?>
+<?php require_once CAMAGRU_ROOT . '/Views/inc/header.php';
+    require_once CAMAGRU_ROOT . '/Views/inc/nav.php'; ?>
+
 
 <div class="col-md-6 mx-auto">
         <div class="card card-body shadow p-3 mb-5 bg-white rounded mt-5 text-center">
@@ -13,7 +15,7 @@
                     <span class="invalid-feedback"><?php echo $data['err_newPassword'] ?></span>
                 </div>
                 <div class="row mb-4 w-75 ml-5 m-auto">
-                    <input type="submit" value="Reset" class="btn btn-primary btn-block">
+                    <input type="submit" value="Reset" class="btn btn-dark btn-block">
                 </div>
             </form>
         </div>

@@ -41,30 +41,25 @@
         {
             $this->db->query('SELECT * FROM users WHERE token = :token');
             $this->db->bind(':token', $token);
-            
-            $row = $this->db->singleFetch();
-
-
-        if ($this->db->rowCount() > 0)
-        {
-            $this->db->query('UPDATE users SET verified = 1 WHERE token = :token');
-            $this->db->bind(':token', $token);
-            if ($this->db->execute())
-                return true;
+            //$row = $this->db->singleFetch();
+            if ($this->db->rowCount() > 0)
+            {
+                $this->db->query('UPDATE users SET verified = 1 WHERE token = :token');
+                $this->db->bind(':token', $token);
+                if ($this->db->execute())
+                    return true;
+                else
+                    return false;
+            }
             else
-               return false;
-        }
-        else
-            return false;
+                return false;
         }
 
         public function findUsrByEmail($email){
 
             $this->db->query('SELECT * FROM users WHERE email = :email');
             $this->db->bind(':email', $email);
-
-            $row = $this->db->singleFetch();
-
+            //$row = $this->db->singleFetch();
             if ($this->db->rowCount() > 0)
                 return true;
             else
@@ -75,9 +70,7 @@
 
             $this->db->query('SELECT * FROM users WHERE username = :username');
             $this->db->bind(':username', $username);
-
-            $row = $this->db->singleFetch();
-
+            //$row = $this->db->singleFetch();
             if ($this->db->rowCount() > 0)
                 return true;
             else
@@ -88,9 +81,7 @@
 
             $this->db->query('SELECT * FROM users WHERE email = :email');
             $this->db->bind(':email', $email);
-
             $row = $this->db->singleFetch();
-
             if ($this->db->rowCount() > 0)
                 return $row;
             else
@@ -102,7 +93,6 @@
             $this->db->query('UPDATE users SET username = :username WHERE id = :id');
             $this->db->bind(':username', $new_username);
             $this->db->bind(':id', $id);
-
             if ($this->db->execute())
                 return true;
             else
@@ -114,7 +104,6 @@
             $this->db->query('UPDATE users SET fullname = :fullname WHERE id = :id');
             $this->db->bind(':fullname', $new_fullname);
             $this->db->bind(':id', $id);
-
             if ($this->db->execute())
                 return true;
             else
@@ -126,7 +115,6 @@
             $this->db->query('UPDATE users SET password = :password WHERE id = :id');
             $this->db->bind(':password', $new_password);
             $this->db->bind(':id', $id);
-
             if ($this->db->execute())
                 return true;
             else
@@ -138,7 +126,6 @@
             $this->db->query('UPDATE users SET email = :email WHERE id = :id');
             $this->db->bind(':email', $new_email);
             $this->db->bind(':id', $id);
-
             if ($this->db->execute())
                 return true;
             else
@@ -151,7 +138,6 @@
             else
                 $this->db->query('UPDATE users SET notification = 0 WHERE id = :id');
             $this->db->bind(':id', $id);
-
             if ($this->db->execute())
                 return true;
             else
@@ -179,5 +165,16 @@
                 return true;
             else
                 return false;
-        } 
+        }
+
+        public function verify_return($email)
+        {
+            echo"dkhal hna";
+            $this->db->query('SELECT * FROM users WHERE email = :email AND verified = 1');
+            $this->db->bind(':email',$email);
+            if ($this->db->rowCount() > 0)
+                return true;
+            else
+                return false;
+        }
     }

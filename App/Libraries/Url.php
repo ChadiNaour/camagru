@@ -28,6 +28,8 @@
                     $this->curMethod = $url[1];
                     unset($url[1]);
                 }
+                else
+                    die("page not found");
             }
 
             $this->params = $url ? array_values($url) : [];

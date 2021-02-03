@@ -61,7 +61,7 @@
                               data-c-post_id="<?php echo $post->postId;?>" class="btn btn-dark pull-right" type="button">Add</button>
                           </div>
                         </div>
-                      <div id="block_<?php echo $post->postId;?>" style="display:none; margin:0px; padding:0p;">
+                      <div id="block_<?php echo $post->postId;?>" style="display:block; margin:0px; padding:0p;">
                       <?php
                         if(is_array($data['comments']))
                         {
@@ -75,7 +75,7 @@
                                         <div class="media-body">
                                             <strong class="text-dark d-inline"><?php echo $comment->username;?></strong>
                                             <p style="magrin:0px; padding:0px; display:inline;" class="d-inline"><?php echo htmlspecialchars($comment->content);?></p>
-                                            <a href="<?php echo URL_ROOT ?>/posts/delete_comments/<?php echo $comment->commentId ?>" class="" style="  position: relative; float: right;"><i class="fa fa-trash"></i></a>
+                                            <?php if ($comment->userId == $_SESSION['user_id']): ?><a href="<?php echo URL_ROOT ?>/posts/delete_comments/<?php echo $comment->commentId ?>" class="" style="  position: relative; float: right;"><i class="fa fa-trash"></i></a><?php endif; ?>
                                         </div>
                                     </li>
                                 </div>
@@ -92,7 +92,7 @@
     <?php endforeach;  ?>
   </div>
   <div class="text-center">
-  <ul class="pagination justify-content-center">
+  <ul class="pagination justify-content-center mb-">
     <?php 
     if(($data['currentPage']-1) > 0)
         echo '<li class="active"><a class="page-link" style="background-color:black; color:white;" href="' . URL_ROOT . '/posts?page='.($data['currentPage']-1).'"><</a></li>';

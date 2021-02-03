@@ -16,6 +16,4 @@
             else
                 die('View not found !!');
         }
-
-
     }

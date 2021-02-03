@@ -1,13 +1,11 @@
 if (window.location.href == server_name + '/posts/add')
 {
-    console.log("in");
     var video = document.getElementById('video'),
         canvas = document.getElementById('pic-canvas'),
         context = canvas.getContext('2d'),
         uploadImg = document.getElementById('upload');
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.oGetUserMedia || navigator.msGetUserMedia;
     if(navigator.getUserMedia){
-        console.log("inusermedia");
         navigator.getUserMedia({video:true}, streamWebCam, throwError);
     }
 
@@ -31,7 +29,8 @@ if (window.location.href == server_name + '/posts/add')
     });
 
     document.getElementById('clear').addEventListener("click", function(){
-    context.clearRect(0, 0, canvas.width, canvas.height);
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        document.getElementById('save').disabled = true;
     });
 
     mask = document.getElementById('mask'),
@@ -40,6 +39,21 @@ if (window.location.href == server_name + '/posts/add')
     hat = document.getElementById('hat');
 
     var elem = document.createElement('img');
+    elem.setAttribute("height", "50");
+    elem.setAttribute("width", "50");
+    elem.setAttribute("id", "filters");
+
+    var elem1 = document.createElement('img');
+    elem.setAttribute("height", "50");
+    elem.setAttribute("width", "50");
+    elem.setAttribute("id", "filters");
+
+    var elem2 = document.createElement('img');
+    elem.setAttribute("height", "50");
+    elem.setAttribute("width", "50");
+    elem.setAttribute("id", "filters");
+
+    var elem3 = document.createElement('img');
     elem.setAttribute("height", "50");
     elem.setAttribute("width", "50");
     elem.setAttribute("id", "filters");
@@ -77,9 +91,13 @@ if (window.location.href == server_name + '/posts/add')
             var img = new Image;
             img.onload = function () {
                 context.drawImage(img, 0, 0, canvas.width, canvas.height);
+                context.drawImage(elem, 10, 10, 140, 140);
             }
             if(file && isImage(file))
             img.src = URL.createObjectURL(file);
+            if (uploadImg.files.length != 0){
+                document.getElementById('save').disabled = false;
+            }
         });
     }
 

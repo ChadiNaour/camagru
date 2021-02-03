@@ -41,7 +41,7 @@
                             </i>
                         <?php }
                         ?>
-                      <a id="li_nb_<?php echo $post->postId;?>" class="card-link text-muted"><?php echo $post->like_nbr;?></a>
+                      <a id="li_nb_<?php echo $post->postId;?>" class="card-link text-muted" style="text-decoration: none;"><?php echo $post->like_nbr;?></a>
                     </div>
                     <div class="col-sm">
                       <a><i class="fa fa-comment"
@@ -61,8 +61,7 @@
                               data-c-post_id="<?php echo $post->postId;?>" class="btn btn-dark pull-right" type="button">Add</button>
                           </div>
                         </div>
-                      <br>
-                      <div id="block_<?php echo $post->postId;?>" style="display:none;">
+                      <div id="block_<?php echo $post->postId;?>" style="display:block; margin:0px; padding:0p;">
                       <?php
                         if(is_array($data['comments']))
                         {
@@ -71,19 +70,20 @@
                             if($comment->post_id == $post->postId)
                             {
                             ?>
-                                <ul class="media-list" style=" padding:0px; magrin:0px; list-style-type:none;">
+                                <div class="media-list" style=" padding:0px!important; magrin:0px!important; list-style-type:none;">
                                     <li class="media">                    
                                         <div class="media-body">
                                             <strong class="text-dark d-inline"><?php echo $comment->username;?></strong>
                                             <p style="magrin:0px; padding:0px; display:inline;" class="d-inline"><?php echo htmlspecialchars($comment->content);?></p>
+                                            <?php if ($comment->userId == $_SESSION['user_id']): ?><a href="<?php echo URL_ROOT ?>/posts/delete_comments/<?php echo $comment->commentId ?>" class="" style="  position: relative; float: right;"><i class="fa fa-trash"></i></a><?php endif; ?>
                                         </div>
                                     </li>
-                                </ul>
+                                </div>
                               <?php
                             }
                           }
                         }?>
-                      <div class="create_date mt-2">
+                      <div class="create_date">
                         <p><?php echo $post->create_at; ?></p>
                     </div>
                     </div>
@@ -92,23 +92,23 @@
     <?php endforeach;  ?>
   </div>
   <div class="text-center">
-  <ul class="pagination justify-content-center">
+  <ul class="pagination justify-content-center mb-">
     <?php 
     if(($data['currentPage']-1) > 0)
-        echo '<li class="active"><a class="page-link" href="' . URL_ROOT . '/posts?page='.($data['currentPage']-1).'"><</a></li>';
+        echo '<li class="active"><a class="page-link" style="background-color:black; color:white;" href="' . URL_ROOT . '/posts?page='.($data['currentPage']-1).'"><</a></li>';
     else
-        echo '<li class="active"><a class="page-link"><</a></li>';
+        echo '<li class="active"><a class="page-link" style="background-color:black; color:white;"><</a></li>';
 
     for($i = 1; $i <= $data['totalPages']; $i++){
         if($i == $data['currentPage'])
-            echo '<li class="active"><a class="page-link">'.$i.'</a></li>';
+            echo '<li class="active"><a class="page-link" style="background-color:black; color:white;">'.$i.'</a></li>';
         else
-            echo '<li class="active"><a class="page-link" href="' . URL_ROOT . '/posts?page='.$i.'">'.$i.'</a></li>';
+            echo '<li class="active"><a class="page-link" style="background-color:black; color:white;" href="' . URL_ROOT . '/posts?page='.$i.'">'.$i.'</a></li>';
     }
     if(($data['currentPage']+1) <= $data['totalPages'])
-        echo '<li class="active"><a class="page-link" href="' . URL_ROOT . '/posts?page='.($data['currentPage']+1).'">></a></li>';
+        echo '<li class="active"><a class="page-link" style="background-color:black; color:white;" href="' . URL_ROOT . '/posts?page='.($data['currentPage']+1).'">></a></li>';
     else
-        echo '<li class="active""><a class="page-link">></a></li>';
+        echo '<li class="active""><a class="page-link" style="background-color:black; color:white;">></a></li>';
 
     ?>
   </ul>

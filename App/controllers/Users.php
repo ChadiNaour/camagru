@@ -6,6 +6,7 @@
         {
             $this->userModel = $this->model('User');
             $this->postModel = $this->model('Post');
+            $_SESSION['user_img'] = (file_exists($_SESSION['user_img'])) ? $_SESSION['user_img'] : 'https://www.washingtonfirechiefs.com/Portals/20/EasyDNNnews/3584/img-blank-profile-picture-973460_1280.png';
             // Check Inputs Post 
 
         }
@@ -34,6 +35,8 @@
                         $data['err_fullname'] = 'please enter fullname !!';
                     if (empty($data['email']))
                         $data['err_email'] = 'please enter email !!';
+                    else if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL))
+                        $data['err_email'] = "Invalid email format";
                     else
                     {
                         if($this->userModel->findUsrByEmail($data['email']))
@@ -161,7 +164,6 @@
                     'err_username' => '',
                     'err_password' => '',
                 ];
-
                 $this->view('users/login', $data);
             }
         }
@@ -172,7 +174,9 @@
             unset($_SESSION['user_email']);
             unset($_SESSION['user_username']);
             unset($_SESSION['user_fullname']);
-
+            unset($_SESSION['user_img']);
+            unset($_SESSION['notification']);
+            unset( $_SESSION['verify']);
             session_destroy();
             redirect('users/login');
         }
@@ -195,7 +199,16 @@
 
                 if (empty($data['forgotEmail']))
                     $data['err_forgotEmail'] = 'please enter email !!';
-                else if(!$this->userModel->findUsrByEmail($data['forgotEmail']))
+                if($this->userModel->findUsrByEmail($data['forgotEmail']))
+                {
+                    if (!$this->userModel->verify_return($data['forgotEmail']))
+                    {
+                        $data['err_forgotEmail'] = 'Email not verified';
+                        pop_up('signup_ok', 'you need to verify your account');
+                        redirect('users/login');
+                    }
+                }
+                else
                     $data['err_forgotEmail'] = 'Email doest not exist !!';
                 
                 if (empty($data['err_forgotEmail']))
@@ -235,7 +248,7 @@
             $_SESSION['user_fullname'] = $user->fullname;
             $_SESSION['user_img'] = $user->profile_img;
             $_SESSION['notification'] = $user->notification;
-
+            $_SESSION['verify'] = $user->verified;
             redirect('posts');
         }
 
@@ -244,7 +257,6 @@
             if (isset($_GET['token']))
             {
                 $token = $_GET['token'];
-                
                 if ($this->userModel->verify($token))
                 {
                     pop_up('signup_ok', 'Your account is verified succesfully');
@@ -314,12 +326,12 @@
                         pop_up('signup_ok', 'Password updated');
                         redirect('users/login');
                     }
-                    else {
+                    else
+                    {
                         pop_up('signup_ok', 'Password not updated', 'alert alert-danger');
                         redirect('users/login');
                     }
                 }
-                $this->view('users/reset', $data); 
             }
         }
         
@@ -340,7 +352,7 @@
             ];
             if(!empty($_POST['new_username']))
             {
-                if($this->userModel->update_username($_POST['new_username'], $data['id']))
+                if(!($this->userModel->findUsrByUsername($_POST['new_username'])) && $this->userModel->update_username($_POST['new_username'], $data['id']))
                 {
                     pop_up('updated', 'Username updated ✓', 'pop alert alert-success w-50 mx-auto text-center');
                     $_SESSION['user_username'] = $_POST['new_username'];
